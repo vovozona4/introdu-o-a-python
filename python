@@ -41,3 +41,23 @@ print("-" * 30)
 print("Total de Valores Nulos por Coluna:")
 print(df.isnull().sum())
 print("-" * 30)
+# 4.1 Tratamento de Valores Faltantes (NaN) na coluna 'Vendas'
+# Vamos preencher os NaNs com a MEDIANA, pois é menos sensível a outliers do que a média.
+mediana_vendas = df['Vendas'].median()
+df['Vendas'].fillna(mediana_vendas, inplace=True)
+
+# 4.2 Tratamento de Valores Incorretos/Ruído na coluna 'Vendas'
+# Removendo ou corrigindo valores negativos (Vendas não pode ser negativo)
+# Neste caso, vamos substituir valores menores ou iguais a zero por NaN e depois preencher com a mediana novamente.
+df['Vendas'] = np.where(df['Vendas'] <= 0, np.nan, df['Vendas'])
+df['Vendas'].fillna(mediana_vendas, inplace=True) # Preenchendo o valor corrigido
+
+# 4.3 Tratamento de Valores Incorretos/Ruído na coluna 'Categoria'
+# Removendo a linha com a categoria 'NaN'
+df = df[df['Categoria'] != 'NaN']
+
+print("Verificação Após a Limpeza:")
+print(df.isnull().sum())
+print("\nPrimeiras linhas após a limpeza:")
+print(df.head(10))
+print("-" * 30)
