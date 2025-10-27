@@ -27,3 +27,17 @@ df.loc[48, 'Vendas'] = -100 # Valor negativo (incorreto)
 print("DataFrame Fictício Criado:")
 print(df.head(10))
 print("-" * 30)
+# 3.1 Informações do DataFrame
+print("Informações e Tipos de Dados:")
+df.info()
+print("-" * 30)
+
+# 3.2 Estatísticas Descritivas
+print("Estatísticas Descritivas das Colunas Numéricas:")
+print(df['Vendas'].describe())
+print("-" * 30)
+
+# 3.3 Verificação de Valores Nulos
+print("Total de Valores Nulos por Coluna:")
+print(df.isnull().sum())
+print("-" * 30)
