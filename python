@@ -61,3 +61,27 @@ print(df.isnull().sum())
 print("\nPrimeiras linhas após a limpeza:")
 print(df.head(10))
 print("-" * 30)
+# 5.1 Análise - Agrupamento de Dados
+# Calculando o total de vendas por 'Regiao'
+vendas_por_regiao = df.groupby('Regiao')['Vendas'].sum().sort_values(ascending=False).reset_index()
+
+print("Vendas Totais por Região:")
+print(vendas_por_regiao)
+print("-" * 30)
+
+# 5.2 Visualização - Criar um gráfico de barras para comunicar o resultado
+plt.figure(figsize=(10, 6))
+
+# Usando Seaborn para criar o gráfico
+sns.barplot(x='Regiao', y='Vendas', data=vendas_por_regiao, palette='viridis')
+
+# Adicionando título e rótulos
+plt.title('Total de Vendas por Região', fontsize=16)
+plt.xlabel('Região', fontsize=12)
+plt.ylabel('Total de Vendas (em milhões)', fontsize=12)
+
+# Adicionar o valor total de vendas no topo de cada barra
+for index, row in vendas_por_regiao.iterrows():
+    plt.text(index, row['Vendas'], f'R$ {row["Vendas"]:,.0f}', color='black', ha="center", va="bottom")
+
+plt.show()
