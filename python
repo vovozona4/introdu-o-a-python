@@ -1,0 +1,29 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Configuração para melhor visualização dos gráficos (opcional)
+sns.set_style("whitegrid")
+
+# Criando um DataFrame de Vendas Fictício
+np.random.seed(42) # Para reprodutibilidade
+
+dados = {
+    'ID_Venda': range(1001, 1051),
+    'Data': pd.to_datetime(pd.date_range(start='2024-01-01', periods=50)),
+    'Categoria': np.random.choice(['Eletrônicos', 'Vestuário', 'Alimentos', 'Decoração'], size=50),
+    'Vendas': np.random.randint(50, 500, size=50) * 10,
+    'Regiao': np.random.choice(['Norte', 'Sul', 'Leste', 'Oeste'], size=50)
+}
+
+df = pd.DataFrame(dados)
+
+# Introduzindo alguns dados faltantes (NaN) e valores incorretos para a limpeza
+df.loc[3:5, 'Vendas'] = np.nan
+df.loc[10, 'Categoria'] = 'NaN'
+df.loc[48, 'Vendas'] = -100 # Valor negativo (incorreto)
+
+print("DataFrame Fictício Criado:")
+print(df.head(10))
+print("-" * 30)
